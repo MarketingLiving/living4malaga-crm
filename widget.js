@@ -7,9 +7,7 @@ let currentLeadId = null;
 let currentLeadEmail = null;
 
 // Backend API URL (configurable en producción)
-const CRM_API_URL = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
-    ? 'http://localhost:3000'
-    : window.location.origin; // Usa el mismo hosting en producción
+const CRM_API_URL = "https://living4malaga-crm.onrender.com"; // Fixed URL to Render backend
 
 // ==========================================================================
 // TEXTOS Y TRADUCCIONES DEL WIDGET (DICCIONARIO ES / EN)
