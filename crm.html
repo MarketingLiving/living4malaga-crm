@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living4malaga - CRM Inmobiliario de Inversiones</title>
+    <!-- Montserrat de Google Fonts para unificar estética -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Archivo de estilos corporativos del CRM -->
+    <link rel="stylesheet" href="crm-styles.css">
+    <!-- Estilos del widget para incrustarlo en la vista previa del simulador -->
+    <link rel="stylesheet" href="widget.css">
+    
+    <!-- Lucide Icons para simbología premium -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="crm-app-container">
+        <!-- BARRA LATERAL (SIDEBAR) -->
+        <aside class="crm-sidebar">
+            <div class="crm-brand-area">
+                <div class="crm-brand-logo">L4M</div>
+                <div class="crm-brand-text">
+                    <h2>Living4malaga</h2>
+                    <span>Investor CRM</span>
+                </div>
+            </div>
+            
+            <nav class="crm-nav">
+                <button class="crm-nav-item active" id="btn-tab-dashboard" onclick="switchCrmTab('dashboard')">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="crm-nav-item" id="btn-tab-leads" onclick="switchCrmTab('leads')">
+                    <i data-lucide="users"></i>
+                    <span>Base de Leads</span>
+                    <span class="crm-badge" id="crm-sidebar-badge">0</span>
+                </button>
+                <button class="crm-nav-item highlight-brand" id="btn-tab-sandbox" onclick="switchCrmTab('sandbox')">
+                    <i data-lucide="smartphone"></i>
+                    <span>Previsualizar Formulario</span>
+                </button>
+                <button class="crm-nav-item" id="btn-tab-setup" onclick="switchCrmTab('setup')">
+                    <i data-lucide="code-2"></i>
+                    <span>Insertar en WordPress</span>
+                </button>
+            </nav>
+
+            <div class="crm-sidebar-footer">
+                <div class="crm-db-status">
+                    <span class="crm-status-dot pulse"></span>
+                    <span>Base de Datos Local Activa</span>
+                </div>
+                <button class="crm-reset-btn" onclick="resetCrmDatabase()" title="Restaurar base de datos a semilla de demostración">
+                    <i data-lucide="refresh-cw"></i>
+                    <span>Reiniciar base de datos</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="crm-main-content">
+            <!-- VISTA 1: DASHBOARD -->
+            <section id="crm-view-dashboard" class="crm-section active">
+                <header class="crm-view-header">
+                    <div class="crm-header-title">
+                        <h2>Panel de Control</h2>
+                        <p>Visión general del embudo de inversión inmobiliaria de Living4malaga</p>
+                    </div>
+                    <div class="crm-header-date" id="crm-date-display">Viernes, 29 de Mayo de 2026</div>
+                </header>
+
+                <!-- Tarjetas KPI Corporativas -->
+                <div class="crm-kpi-grid">
+                    <div class="crm-kpi-card">
+                        <div class="crm-kpi-icon icon-navy">
+                            <i data-lucide="user-plus"></i>
+                        </div>
+                        <div class="crm-kpi-info">
+                            <span>TOTAL LEADS</span>
+                            <h3 id="kpi-total">0</h3>
+                            <p id="kpi-sub-total">Paso 1 completado</p>
+                        </div>
+                    </div>
+                    <div class="crm-kpi-card">
+                        <div class="crm-kpi-icon icon-gold">
+                            <i data-lucide="shield-check"></i>
+                        </div>
+                        <div class="crm-kpi-info">
+                            <span>PERFILES COMPLETOS</span>
+                            <h3 id="kpi-profiles">0</h3>
+                            <p id="kpi-sub-profiles">Paso 2 completado</p>
+                        </div>
+                    </div>
+                    <div class="crm-kpi-card">
+                        <div class="crm-kpi-icon icon-blue">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                        <div class="crm-kpi-info">
+                            <span>TASA CONVERSIÓN</span>
+                            <h3 id="kpi-conv">0%</h3>
+                            <p id="kpi-sub-conv">De Paso 1 a Paso 2</p>
+                        </div>
+                    </div>
+                    <div class="crm-kpi-card">
+                        <div class="crm-kpi-icon icon-purple">
+                            <i data-lucide="wallet"></i>
+                        </div>
+                        <div class="crm-kpi-info">
+                            <span>VOLUMEN REGISTRADO</span>
+                            <h3 id="kpi-volume">0 €</h3>
+                            <p id="kpi-sub-volume">Presupuesto consolidado</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos del Embudo -->
+                <div class="crm-charts-container">
+                    <!-- Tarjeta Distribución por Idioma -->
+                    <div class="crm-chart-card">
+                        <h3>Distribución de Clientes por Idioma</h3>
+                        <p class="chart-desc">Proporción de leads captados según el idioma del navegador</p>
+                        
+                        <div class="crm-lang-chart">
+                            <div class="crm-lang-row">
+                                <div class="crm-lang-flag es"></div>
+                                <div>
+                                    <strong>Español (ES)</strong>
+                                    <span id="txt-lang-es">0 Leads (0%)</span>
+                                </div>
+                            </div>
+                            <div class="crm-lang-row">
+                                <div class="crm-lang-flag en"></div>
+                                <div>
+                                    <strong>Inglés (EN)</strong>
+                                    <span id="txt-lang-en">0 Leads (0%)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crm-progress-bar-dual">
+                            <div class="progress-segment es" id="bar-seg-es" style="width: 50%;"></div>
+                            <div class="progress-segment en" id="bar-seg-en" style="width: 50%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta Rangos de Inversión -->
+                    <div class="crm-chart-card">
+                        <h3>Volumen de Inversión Cómoda (Paso 2)</h3>
+                        <p class="chart-desc">Distribución según el rango seleccionado en el cuestionario final</p>
+                        
+                        <div class="crm-budget-bars-list" id="crm-budget-chart-rows">
+                            <!-- Render por JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leads Recientes -->
+                <div class="crm-recent-card">
+                    <div class="crm-recent-header">
+                        <h3>Inversores Recientes</h3>
+                        <button class="text-link-btn" onclick="switchCrmTab('leads')">Ver base completa ➔</button>
+                    </div>
+                    <div class="crm-table-wrapper">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>Inversor</th>
+                                    <th>Idioma</th>
+                                    <th>Operación</th>
+                                    <th>Presupuesto (Paso 1)</th>
+                                    <th>Fase Embudo</th>
+                                    <th>Estado CRM</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="crm-recent-tbody">
+                                <!-- JS inyecta -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA 2: BASE DE LEADS -->
+            <section id="crm-view-leads" class="crm-section">
+                <header class="crm-view-header">
+                    <div class="crm-header-title">
+                        <h2>Base de Datos de Inversores</h2>
+                        <p>Gestiona, filtra y realiza el seguimiento de tu cartera de clientes</p>
+                    </div>
+                    <div class="crm-header-actions">
+                        <button class="crm-btn-primary" onclick="switchCrmTab('sandbox')">
+                            <i data-lucide="smartphone"></i>
+                            <span>Captar Inversor</span>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Barra de Filtros -->
+                <div class="crm-filter-bar">
+                    <div class="crm-search-box">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="crm-search-input" oninput="filterCrmLeads()" placeholder="Buscar por nombre, email o teléfono...">
+                    </div>
+                    
+                    <div class="crm-filters-wrapper">
+                        <div class="crm-select-custom">
+                            <select id="crm-filter-lang" onchange="filterCrmLeads()">
+                                <option value="">Todos los Idiomas</option>
+                                <option value="ES">Español (ES)</option>
+                                <option value="EN">Inglés (EN)</option>
+                            </select>
+                        </div>
+                        <div class="crm-select-custom">
+                            <select id="crm-filter-stage" onchange="filterCrmLeads()">
+                                <option value="">Todas las Fases</option>
+                                <option value="form1">Paso 1 (Básico)</option>
+                                <option value="form2">Paso 2 (Perfil Completo)</option>
+                            </select>
+                        </div>
+                        <div class="crm-select-custom">
+                            <select id="crm-filter-status" onchange="filterCrmLeads()">
+                                <option value="">Todos los Estados</option>
+                                <option value="Nuevo">Nuevo</option>
+                                <option value="Enviado Tally">Paso 2 Abierto</option>
+                                <option value="Tally Completado">Paso 2 Completado</option>
+                                <option value="Contactado">Contactado</option>
+                                <option value="Bajo Análisis">Bajo Análisis</option>
+                                <option value="Inversión Activa">Inversión Activa</option>
+                                <option value="Descartado">Descartado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Leads Principal -->
+                <div class="crm-table-container">
+                    <div class="crm-table-wrapper">
+                        <table class="crm-table main-grid">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortCrmLeads('name')">Lead <i class="sort-icon" data-lucide="chevrons-up-down"></i></th>
+                                    <th onclick="sortCrmLeads('language')">Idioma <i class="sort-icon" data-lucide="chevrons-up-down"></i></th>
+                                    <th>¿Qué Busca?</th>
+                                    <th>Zona Interés</th>
+                                    <th>Presupuesto (Paso 1)</th>
+                                    <th onclick="sortCrmLeads('stage')">Fase <i class="sort-icon" data-lucide="chevrons-up-down"></i></th>
+                                    <th onclick="sortCrmLeads('status')">Estado CRM <i class="sort-icon" data-lucide="chevrons-up-down"></i></th>
+                                    <th>Registro</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="crm-leads-tbody">
+                                <!-- JS inyecta -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA 3: SANDBOX / PREVISUALIZAR FORMULARIO -->
+            <section id="crm-view-sandbox" class="crm-section">
+                <header class="crm-view-header">
+                    <div class="crm-header-title">
+                        <h2>Sandbox: Prueba del Formulario Embebido</h2>
+                        <p>Rellena este widget en vivo; simulará la inserción automática en tu CRM de la misma forma que en WordPress</p>
+                    </div>
+                </header>
+
+                <div class="crm-sandbox-layout">
+                    <div class="crm-sandbox-phone">
+                        <div class="crm-phone-screen">
+                            <!-- INYECCIÓN REAL DEL WIDGET CON ESTILO DE EMPRESA -->
+                            <div class="crm-widget-wrapper" id="sandbox-widget-mount">
+                                <!-- El HTML de widget.html se cargará e inyectará aquí dinámicamente -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crm-sandbox-instructions">
+                        <div class="instruction-card">
+                            <h3><i data-lucide="sparkles" style="color: var(--gold);"></i> Entorno de Pruebas Unificado</h3>
+                            <p>Hemos embebido el formulario real en esta pantalla del CRM para que puedas experimentar la automatización al instante:</p>
+                            <ol>
+                                <li>Rellena el <strong>Paso 1</strong> en el simulador móvil de la izquierda y pulsa <em>Siguiente Paso</em>.</li>
+                                <li>En el CRM (base de leads), se creará el perfil del prospecto en tiempo real.</li>
+                                <li>Completa el <strong>Paso 2</strong> con los extras e inversión cómoda en el mismo móvil de la izquierda.</li>
+                                <li>¡PUM! La ficha del lead se actualizará en tu CRM instantáneamente en modo <strong>"Paso 2 Completado"</strong>.</li>
+                            </ol>
+                            <div class="crm-badge-row">
+                                <span class="badge-tag-navy">#002d3a (Navy)</span>
+                                <span class="badge-tag-gold">#d3a274 (Gold)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA 4: GUÍAS DE INTEGRACIÓN Y CÓDIGO -->
+            <section id="crm-view-setup" class="crm-section">
+                <header class="crm-view-header">
+                    <div class="crm-header-title">
+                        <h2>Integrar en living4malaga.com/invertir/</h2>
+                        <p>Cómo insertar este formulario de lujo en tu actual WordPress en menos de 5 minutos</p>
+                    </div>
+                </header>
+
+                <div class="crm-setup-container">
+                    <div class="setup-card">
+                        <div class="setup-number">1</div>
+                        <div class="setup-details">
+                            <h3>Incrustar Código HTML en WordPress</h3>
+                            <p>Entra en el editor de tu página de WordPress `https://living4malaga.com/invertir/` (ya sea con Gutenberg, Elementor o Divi):</p>
+                            <ol>
+                                <li>Agrega un bloque de **"HTML Personalizado"** o **"Custom HTML Code"** en la sección donde desees colocar el formulario.</li>
+                                <li>Copia y pega la estructura HTML del widget que hemos diseñado para ti:</li>
+                            </ol>
+                            <textarea readonly class="code-box-textarea" id="code-html-box">Cargando código HTML...</textarea>
+                            <button class="crm-btn-secondary btn-sm" onclick="copyCode('code-html-box')"><i data-lucide="copy"></i> Copiar Código HTML</button>
+                        </div>
+                    </div>
+
+                    <div class="setup-card">
+                        <div class="setup-number">2</div>
+                        <div class="setup-details">
+                            <h3>Inyectar los Estilos Corporativos (CSS)</h3>
+                            <p>Para darle el acabado boutique con tus tonos corporativos (`#002d3a` y `#d3a274`), agrega las siguientes reglas en el panel de **"CSS Adicional"** de tu Personalizador de WordPress o dentro del mismo bloque HTML rodeado de etiquetas <code>&lt;style&gt;...&lt;/style&gt;</code>:</p>
+                            <textarea readonly class="code-box-textarea" id="code-css-box">Cargando código CSS...</textarea>
+                            <button class="crm-btn-secondary btn-sm" onclick="copyCode('code-css-box')"><i data-lucide="copy"></i> Copiar Estilos CSS</button>
+                        </div>
+                    </div>
+
+                    <div class="setup-card">
+                        <div class="setup-number">3</div>
+                        <div class="setup-details">
+                            <h3>Enlazar la Lógica y la API (JS)</h3>
+                            <p>Por último, agrega el archivo Javascript al final de tu código de WordPress (dentro de etiquetas <code>&lt;script&gt;...&lt;/script&gt;</code>) para dotar al formulario de la traducción automática, transiciones dinámicas y envío a tu CRM:</p>
+                            <textarea readonly class="code-box-textarea" id="code-js-box">Cargando código JS...</textarea>
+                            <button class="crm-btn-secondary btn-sm" onclick="copyCode('code-js-box')"><i data-lucide="copy"></i> Copiar Código JS</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- DRAWER / FICHA DE DETALLES DEL INVERSOR -->
+    <div id="crm-lead-drawer" class="crm-drawer">
+        <div class="crm-drawer-overlay" onclick="closeCrmLeadDrawer()"></div>
+        <div class="crm-drawer-content">
+            <header class="crm-drawer-header">
+                <div class="crm-drawer-title">
+                    <span class="badge-lang" id="dr-lang">ES</span>
+                    <h3 id="dr-name">Cargando Inversor...</h3>
+                    <p id="dr-date">Registrado el --/--/--</p>
+                </div>
+                <button class="crm-close-btn" onclick="closeCrmLeadDrawer()">
+                    <i data-lucide="x"></i>
+                </button>
+            </header>
+
+            <div class="crm-drawer-body">
+                <!-- Estado CRM Selector -->
+                <div class="crm-drawer-block">
+                    <label class="block-label">Estado de Captación CRM</label>
+                    <div class="crm-select-custom select-full">
+                        <select id="dr-status-select" onchange="updateCrmLeadStatus()">
+                            <option value="Nuevo">Nuevo</option>
+                            <option value="Enviado Tally">Paso 2 Abierto</option>
+                            <option value="Tally Completado">Paso 2 Completado</option>
+                            <option value="Contactado">Contactado</option>
+                            <option value="Bajo Análisis">Bajo Análisis</option>
+                            <option value="Inversión Activa">Inversión Activa</option>
+                            <option value="Descartado">Descartado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Info de Contacto -->
+                <div class="crm-drawer-block card-theme">
+                    <h4 class="block-title"><i data-lucide="mail"></i> Información de Contacto</h4>
+                    <div class="crm-info-grid">
+                        <div class="crm-info-cell">
+                            <span>Email</span>
+                            <strong id="dr-email">correo@ejemplo.com</strong>
+                        </div>
+                        <div class="crm-info-cell">
+                            <span>Teléfono</span>
+                            <strong id="dr-phone">+34 600 000 000</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 1 (WordPress Web) -->
+                <div class="crm-drawer-block card-theme border-navy">
+                    <div class="crm-block-header-flex">
+                        <h4 class="block-title"><i data-lucide="chrome"></i> Paso 1 (Básico - WordPress)</h4>
+                        <span class="crm-badge-tag navy">Guardado</span>
+                    </div>
+                    <div class="crm-qa-list">
+                        <div class="crm-qa-item">
+                            <span>¿Qué busca en la web?</span>
+                            <p id="dr-wp-op">Inversión</p>
+                        </div>
+                        <div class="crm-qa-item">
+                            <span>Zona de preferencia</span>
+                            <p id="dr-wp-area">Málaga Capital</p>
+                        </div>
+                        <div class="crm-qa-item">
+                            <span>Presupuesto indicado</span>
+                            <p class="quote-text" id="dr-wp-budget">"350.000€ para empezar"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 2 (Perfil Inversor Detallado) -->
+                <div class="crm-drawer-block card-theme border-gold" id="dr-tally-block">
+                    <div class="crm-block-header-flex">
+                        <h4 class="block-title"><i data-lucide="clipboard-list"></i> Paso 2 (Avanzado - Cuestionario)</h4>
+                        <span class="crm-badge-tag gold" id="dr-tally-status">Pendiente</span>
+                    </div>
+                    <div id="dr-tally-content">
+                        <!-- JS renderiza respuestas del Paso 2 o muestra pendiente -->
+                    </div>
+                </div>
+
+                <!-- Línea de Tiempo del Cliente -->
+                <div class="crm-drawer-block">
+                    <h4 class="block-title"><i data-lucide="activity"></i> Línea de Tiempo</h4>
+                    <div class="crm-timeline" id="dr-timeline">
+                        <!-- JS inject -->
+                    </div>
+                </div>
+
+                <!-- Notas y Comentarios del Asesor -->
+                <div class="crm-drawer-block card-theme">
+                    <h4 class="block-title"><i data-lucide="file-edit"></i> Notas Internas de Seguimiento</h4>
+                    <textarea id="dr-notes-input" placeholder="Escribe notas sobre llamadas comerciales, visitas de propiedades o negociaciones..." rows="5"></textarea>
+                    <button class="crm-btn-primary btn-full" onclick="saveCrmLeadNotes()">
+                        <i data-lucide="save"></i>
+                        <span>Guardar Anotación</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de Lógica y Datos del CRM -->
+    <script src="crm.js"></script>
+    <script src="widget.js"></script>
+</body>
+</html>

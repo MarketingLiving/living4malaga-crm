@@ -1,0 +1,217 @@
+<!-- 
+  LIVING4MALAGA - EMBEDDED REAL ESTATE funnel WIDGET
+  Copia y pega este bloque de código dentro de un bloque "Custom HTML" en tu página https://living4malaga.com/invertir/
+-->
+<div class="l4m-funnel-widget" id="l4m-investor-widget">
+    <!-- Encabezado del Formulario -->
+    <header class="l4m-widget-header">
+        <div class="l4m-brand-area">
+            <span class="l4m-logo-icon">L4M</span>
+            <div class="l4m-logo-text">
+                <span class="l4m-title">LIVING<span class="l4m-title-highlight">4</span>MALAGA</span>
+                <span class="l4m-subtitle" id="lbl-widget-subtitle">Investor Profile</span>
+            </div>
+        </div>
+        <div class="l4m-lang-toggle">
+            <button type="button" class="l4m-lang-btn active" id="btn-lang-es" onclick="toggleWidgetLanguage('ES')">ES</button>
+            <button type="button" class="l4m-lang-btn" id="btn-lang-en" onclick="toggleWidgetLanguage('EN')">EN</button>
+        </div>
+    </header>
+
+    <!-- Barra de Progreso -->
+    <div class="l4m-progress-container">
+        <div class="l4m-progress-bar">
+            <div class="l4m-progress-fill" id="l4m-progress-fill" style="width: 15%;"></div>
+        </div>
+        <div class="l4m-progress-steps">
+            <span class="l4m-step-indicator active" id="step-ind-1">1</span>
+            <span class="l4m-step-indicator" id="step-ind-2">2</span>
+        </div>
+    </div>
+
+    <!-- Mensaje informativo general -->
+    <div class="l4m-intro-text" id="lbl-intro-text">
+        Completa el Paso 1 para guardar tus datos y recibir una propuesta personalizada.
+    </div>
+
+    <!-- FORMULARIO PRINCIPAL -->
+    <form id="l4m-embedded-form" onsubmit="handleFormSubmission(event)">
+        <!-- ==========================================
+             PASO 1: CAPTACIÓN INICIAL (BÁSICO)
+             ========================================== -->
+        <div class="l4m-form-step active" id="l4m-step-1-fields">
+            <div class="l4m-grid-col-2">
+                <div class="l4m-field-group">
+                    <label for="w-name" id="lbl-name">Nombre y apellido *</label>
+                    <input type="text" id="w-name" required placeholder="Tu nombre completo">
+                </div>
+                <div class="l4m-field-group">
+                    <label for="w-email" id="lbl-email">Correo electrónico *</label>
+                    <input type="email" id="w-email" required placeholder="correo@ejemplo.com">
+                </div>
+            </div>
+
+            <div class="l4m-grid-col-2">
+                <div class="l4m-field-group">
+                    <label for="w-phone" id="lbl-phone">Número de teléfono *</label>
+                    <input type="tel" id="w-phone" required placeholder="+34 600 000 000">
+                </div>
+                <div class="l4m-field-group">
+                    <label for="w-operation" id="lbl-operation">¿Qué busca? *</label>
+                    <select id="w-operation">
+                        <option value="Inversión" selected id="opt-op-inv">Inversión</option>
+                        <option value="Compra para vivir" id="opt-op-live">Compra para vivir</option>
+                        <option value="Segunda residencia" id="opt-op-second">Segunda residencia</option>
+                        <option value="Venta" id="opt-op-sell">Venta</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="l4m-field-group">
+                <label for="w-area" id="lbl-area">¿Qué zona le interesa? *</label>
+                <select id="w-area">
+                    <option value="Málaga Capital" selected id="opt-area-cap">Málaga Capital (Centro, Malagueta, etc.)</option>
+                    <option value="Costa del Sol" id="opt-area-costa">Costa del Sol (Este/Oeste)</option>
+                    <option value="Málaga Provincia" id="opt-area-prov">Málaga Provincia</option>
+                    <option value="Axarquía" id="opt-area-axar">Axarquía</option>
+                    <option value="No estoy decidido" id="opt-area-unsure">Aún no estoy decidido</option>
+                </select>
+            </div>
+
+            <div class="l4m-field-group">
+                <label for="w-budget-raw" id="lbl-budget-raw">En caso de compra, ¿cuál es su presupuesto? *</label>
+                <textarea id="w-budget-raw" required rows="2" placeholder="Ej. Dispongo de unos 300.000 euros para invertir."></textarea>
+            </div>
+
+            <button type="button" class="l4m-btn-primary" id="btn-next-step" onclick="submitStep1()">
+                <span id="lbl-btn-next">Siguiente paso</span>
+                <span class="l4m-btn-arrow">➔</span>
+            </button>
+        </div>
+
+        <!-- ==========================================
+             PASO 2: PERFIL AVANZADO (TALLY REPLACEMENT)
+             ========================================== -->
+        <div class="l4m-form-step" id="l4m-step-2-fields">
+            <div class="l4m-grid-col-2">
+                <div class="l4m-field-group">
+                    <label id="lbl-purchase-type">¿Qué tipo de compra está buscando? *</label>
+                    <select id="w-purchase-type">
+                        <option value="Inversión" selected id="opt-pur-inv">Inversión</option>
+                        <option value="Vivienda habitual" id="opt-pur-main">Vivienda habitual</option>
+                        <option value="Segunda residencia" id="opt-pur-sec">Segunda residencia</option>
+                        <option value="Alquiler vacacional" id="opt-pur-holiday">Alquiler vacacional</option>
+                    </select>
+                </div>
+                <div class="l4m-field-group">
+                    <label id="lbl-timeline">¿Cuándo le gustaría comprar? *</label>
+                    <select id="w-timeline">
+                        <option value="Lo antes posible" selected id="opt-time-soon">Lo antes posible</option>
+                        <option value="En los próximos 3-6 meses" id="opt-time-months">En los próximos 3-6 meses</option>
+                        <option value="Más adelante / explorando opciones" id="opt-time-later">Más adelante / explorando opciones</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="l4m-field-group">
+                <label for="w-area-detail" id="lbl-area-detail">Zonas específicas de interés (Barrios, Calles...) *</label>
+                <input type="text" id="w-area-detail" placeholder="Ej. Pedregalejo, Soho, Centro Histórico" value="">
+            </div>
+
+            <div class="l4m-grid-col-2">
+                <div class="l4m-field-group">
+                    <label id="lbl-property-type">¿Qué tipo de propiedad busca? *</label>
+                    <select id="w-property-type">
+                        <option value="Piso" selected id="opt-prop-apt">Piso / Apartamento</option>
+                        <option value="Ático" id="opt-prop-pent">Ático</option>
+                        <option value="Villa / casa independiente" id="opt-prop-villa">Villa / Casa independiente</option>
+                        <option value="Obra nueva" id="opt-prop-new">Obra nueva</option>
+                        <option value="Aún no lo tengo definido" id="opt-prop-unsure">Aún no lo tengo definido</option>
+                    </select>
+                </div>
+                <div class="l4m-field-group">
+                    <label id="lbl-bedrooms">¿Cuántos dormitorios necesita? *</label>
+                    <select id="w-bedrooms">
+                        <option value="1">1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                        <option value="4+">4+</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Extras (Checkboxes con Estilo Premium) -->
+            <div class="l4m-field-group">
+                <label id="lbl-extras">¿Qué extras son imprescindibles?</label>
+                <div class="l4m-checkbox-grid">
+                    <label class="l4m-checkbox-card">
+                        <input type="checkbox" name="w-extras" value="Piscina">
+                        <span class="l4m-custom-checkbox"></span>
+                        <span id="lbl-chk-pool">Piscina</span>
+                    </label>
+                    <label class="l4m-checkbox-card">
+                        <input type="checkbox" name="w-extras" value="Terraza" checked>
+                        <span class="l4m-custom-checkbox"></span>
+                        <span id="lbl-chk-terrace">Terraza</span>
+                    </label>
+                    <label class="l4m-checkbox-card">
+                        <input type="checkbox" name="w-extras" value="Parking">
+                        <span class="l4m-custom-checkbox"></span>
+                        <span id="lbl-chk-parking">Parking</span>
+                    </label>
+                    <label class="l4m-checkbox-card">
+                        <input type="checkbox" name="w-extras" value="Vistas al mar">
+                        <span class="l4m-custom-checkbox"></span>
+                        <span id="lbl-chk-views">Vistas al mar</span>
+                    </label>
+                    <label class="l4m-checkbox-card">
+                        <input type="checkbox" name="w-extras" value="Jardín">
+                        <span class="l4m-custom-checkbox"></span>
+                        <span id="lbl-chk-garden">Jardín</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="l4m-grid-col-2">
+                <div class="l4m-field-group">
+                    <label id="lbl-budget-range">¿En qué rango de inversión se siente más cómodo? *</label>
+                    <select id="w-budget-range">
+                        <option value="Menos de 200.000€" id="opt-bud-under">Menos de 200.000 €</option>
+                        <option value="200.000€ - 400.000€" selected id="opt-bud-mid">200.000 € - 400.000 €</option>
+                        <option value="400.000€ - 700.000€" id="opt-bud-high">400.000 € - 700.000 €</option>
+                        <option value="Más de 700.000€" id="opt-bud-over">Más de 700.000 €</option>
+                    </select>
+                </div>
+                <div class="l4m-field-group">
+                    <label id="lbl-financing">¿Necesitará financiación para la compra? *</label>
+                    <select id="w-financing">
+                        <option value="Sí" selected id="opt-fin-yes">Sí</option>
+                        <option value="No" id="opt-fin-no">No</option>
+                        <option value="Aún por definir" id="opt-fin-unsure">Aún por definir</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="l4m-btn-row">
+                <button type="button" class="l4m-btn-secondary" id="btn-back-step" onclick="goBackToStep1()">
+                    <span id="lbl-btn-back">Atrás</span>
+                </button>
+                <button type="submit" class="l4m-btn-primary" id="btn-submit-final">
+                    <span id="lbl-btn-submit">Enviar Perfil Inversor</span>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- PANTALLA DE ÉXITO (SUCCESS PORTAL) -->
+    <div class="l4m-success-screen" id="l4m-success-screen">
+        <div class="l4m-success-icon">✓</div>
+        <h3 id="lbl-success-title">¡Perfil Guardado con Éxito!</h3>
+        <p id="lbl-success-desc">
+            Gracias por completar tu perfil. Nuestro equipo de asesores en inversiones inmobiliarias revisará tus preferencias y te contactará en breve con las mejores oportunidades de Málaga.
+        </p>
+        <button type="button" class="l4m-btn-primary" id="btn-success-reset" onclick="resetWidgetForm()">
+            <span id="lbl-btn-new-form">Enviar otra solicitud</span>
+        </button>
+    </div>
+</div>
